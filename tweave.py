@@ -46,7 +46,7 @@ from docopt import docopt
 import logging
 from os import path
 import sqlite3 as lite
-import streamsettings as stream_settings
+import streamsettings as keys
 import threading
 from streamlistener import TwitterStream as TwitterStream
 
@@ -55,8 +55,8 @@ class StopCmd(cmd.Cmd):
     print "Stopping tweave...\n"
     return(1)
   def do_count(self, message):
-  	print "Tweets saved so far: %s \n" % stream_settings.count
-  	print "Errors so far: %s \n" % stream_settings.errors
+  	print "Tweets saved so far: %s \n" % keys.count
+  	print "Errors so far: %s \n" % keys.errors
 
 class Tweave(threading.Thread):
   """Thread subclass for TwitterStream class
@@ -65,7 +65,7 @@ class Tweave(threading.Thread):
     ts = TwitterStream(post_params, database, table, outfile)
     ts.start()
   def stop(self):
-    stream_settings.user_interrupt = True
+    keys.user_interrupt = True
     logging.info('Stop signal sent.')
 
 if __name__ == '__main__':
@@ -84,7 +84,6 @@ if __name__ == '__main__':
     raise Exception('Max of 400 keywords, you entered %s'
                      % (len(arguments['<keyword'])))
 
-  # Check for database, table.
   if arguments['db']:
     if path.isfile('%s.db' % (arguments['<database>'])):
         database = arguments['<database>']
@@ -123,12 +122,13 @@ if __name__ == '__main__':
   if arguments['--bind']:
     print 'Bound to PH location-enabled tweets' 
   print '\n-----------------------------------------------------------------'
-  print 'Access token key: %s' % stream_settings.OAUTH_KEYS['access_token_key']
-  print 'Access token secret: %s' % stream_settings.OAUTH_KEYS['access_token_secret']
-  print 'Consumer key: %s' % stream_settings.OAUTH_KEYS['consumer_key']
-  print 'Consumer secret: %s' % stream_settings.OAUTH_KEYS['consumer_secret']
+  print 'Access token key: %s' % keys.OAUTH_KEYS['access_token_key']
+  print 'Access token secret: %s' % keys.OAUTH_KEYS['access_token_secret']
+  print 'Consumer key: %s' % keys.OAUTH_KEYS['consumer_key']
+  print 'Consumer secret: %s' % keys.OAUTH_KEYS['consumer_secret']
   print '-----------------------------------------------------------------'
-  print '\nType \'count\' to see numer of saved tweets. \nType \'stop\' to stop collection and exit.'
+  print '\nType \'count\' to see numer of saved tweets.'
+  print '\nType \'stop\' to stop collection and exit.'
   waiting = StopCmd()
   waiting.prompt = '(Tweave): '
   waiting.cmdloop()

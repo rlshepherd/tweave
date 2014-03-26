@@ -1,19 +1,19 @@
-grappler
+tweave
 ===
 Connects and accepts data from a Twitter Streaming API v1.1
 endpoint based on a user-supplied list of keywords. Writes to
 a database and/or JSON file (via tweave.py).
 
-Grappler handles authorization, but you must provide your own tokens
+tweave handles authorization, but you must provide your own tokens
 in <streamsettings.py>. Tokens can be obtained via Twitter:
 https://dev.twitter.com/docs/auth/tokens-devtwittercom
 
 Usage:  
 
-    grappler.py db <database> <table> [-j] [--bind] stream <keyword>...
-    grappler.py json <filename> [--bind] stream <keyword>...
-    grappler.py -v | --version
-    grappler.py -h | --help
+    tweave.py db <database> <table> [-j] [--bind] stream <keyword>...
+    tweave.py json <filename> [--bind] stream <keyword>...
+    tweave.py -v | --version
+    tweave.py -h | --help
 
 Options:
  
@@ -26,21 +26,21 @@ Options:
 
 1. Save all tweets containing 'hashtag' to test.json:
 
-        python grappler.py json test.json stream hashtag
+        python tweave.py json test.json stream hashtag
 
 2. Save all tweets containing 'hashtag' to both the database
 and hashtag.json (name defaults to first keyword).:
 
-        python grappler.py db myprojectdb mytable -j stream hashtag
+        python tweave.py db myprojectdb mytable -j stream hashtag
 
 3. Limit your search results to geotagged tweets originating
    from the Philippines:
 
-        python grappler.py db myprojectdb mytable --bind stream hashtag
+        python tweave.py db myprojectdb mytable --bind stream hashtag
 
 ## Installation
 
-Grappler is built using python and SQLite3. If you're new to python, or don't use pip, virtualenv and virtualenv-wrapper, please read **Preperation** first. If you're a python wiz, skip to **Install**.
+tweave is built using python and SQLite3. If you're new to python, or don't use pip, virtualenv and virtualenv-wrapper, please read **Preperation** first. If you're a python wiz, skip to **Install**.
 
 
 ### Preperation: 
@@ -61,18 +61,18 @@ Grappler is built using python and SQLite3. If you're new to python, or don't us
 
 3. Make a new virtualenv for this project:
 
-        mkvirtualenv grappler
+        mkvirtualenv tweave
 
 ### Install
 
 4. Clone the repo (requires authorized bitbucket account):
 
         cd ~/yourworkingdirectory/  
-        git clone https://username@bitbucket.org/rlshepherd/grappler.git
+        git clone https://username@bitbucket.org/rlshepherd/tweave.git
 
 7. Install python dependencies: 
 
-        cd grappler  
+        cd tweave  
         pip install -r requirements.txt
 
 8. If you get a non-zero exit status for pycurl, try: 
